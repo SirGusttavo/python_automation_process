@@ -1,0 +1,8 @@
+# Lot Miner - Dependencies
+# Requires Windows (COM automation, SAP GUI Scripting)
+
+selenium>=4.0
+pandas>=1.5
+openpyxl>=3.0
+pywin32>=300
+msedge-selenium-tools>=3.0  # ou selenium com Edge nativo

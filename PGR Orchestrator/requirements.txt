@@ -1,0 +1,6 @@
+# PGR Orchestrator - Dependencies
+# Requires Windows (COM automation)
+
+selenium>=4.0
+xlwings>=0.27
+pywin32>=300

@@ -1,0 +1,7 @@
+# Prod Forge - Dependencies
+# Requires Windows (COM automation, SAP GUI Scripting)
+
+pandas>=1.5
+openpyxl>=3.0
+pywin32>=300
+tkcalendar>=1.6
