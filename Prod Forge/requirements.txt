@@ -1,7 +1,7 @@
-# Prod Forge - Dependencies
-# Requires Windows (COM automation, SAP GUI Scripting)
+# Prod Forge — dependências Python
+# Ambiente: Windows; aplicações corporativas externas exigem instalação e acesso próprios.
+# Faixas mínimas de versão são indicativas, não equivalem a um lockfile testado.
 
 pandas>=1.5
 openpyxl>=3.0
 pywin32>=300
-tkcalendar>=1.6
