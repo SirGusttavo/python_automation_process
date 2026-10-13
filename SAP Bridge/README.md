@@ -1,35 +1,69 @@
 # SAP Bridge
 
-O SAP Bridge é uma ferramenta de automação multi-thread para o SAP GUI Scripting. Ela extrai dados de transações do SAP (ZCO1, MB51, Produção) e consolida os resultados em uma planilha Excel mestre utilizando as bibliotecas `pandas` e automação COM (`win32com`).
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![SAP](https://img.shields.io/badge/SAP_GUI-0FA6D4?style=flat-square&logo=sap&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white) ![Excel](https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white)
 
-## Recursos
+> Coleta paralela de relatórios SAP e consolidação em uma planilha mestre.
 
-* **Interface Gráfica**: Interface Tkinter em tema escuro (dark-theme) com acompanhamento de progresso.
-* **Multithreading**: Extração em paralelo (1 a 4 janelas SAP) para otimizar a extração da transação ZCO1.
-* **Notificações**: Notificações nativas do Windows ao concluir ou encontrar erros.
-* **Persistência de Configuração**: Salva as últimas configurações do usuário em um arquivo JSON no diretório AppData.
-* **Robustez**: Utiliza travas (`sap_lock`) para evitar conflitos na interface do SAP entre múltiplas threads.
+[← Voltar ao portfólio Flow](../README.md)
 
-## Tecnologias Utilizadas
+## 📌 Visão geral
 
-* Python 3
-* SAP GUI Scripting (COM/win32com, pythoncom)
-* pandas (processamento e consolidação de dados)
-* openpyxl (suporte ao Excel)
-* Tkinter e tkcalendar (GUI)
-* threading (paralelismo)
+**Desafio.** A extração de diversos relatórios SAP e sua consolidação em Excel exigiam consultas repetidas e tempo operacional elevado.
 
-## Requisitos
+**Solução.** Coleta paralela de relatórios SAP e consolidação em uma planilha mestre.
 
-* SAP GUI instalado (C:\Program Files (x86)\SAP\FrontEnd\SAPgui\saplogon.exe)
-* Acesso ativo ao ambiente SAP (SAP_CONNECTION_NAME)
-* Microsoft Excel instalado
+**Resultado observado.** **~1h30 → menos de 15 minutos** no fluxo original, com redução superior a 83% no tempo.
 
-## Como Utilizar
+## ⚙️ Como funciona
 
-1. Execute o script Python `SAP Bridge (v4.0.0) - codigo higienizado.py`.
-2. Selecione a pasta de destino para os arquivos do SAP.
-3. Selecione a planilha Excel mestre onde os dados serão consolidados.
-4. Escolha o período de extração e o número de threads desejado.
-5. Selecione quais relatórios adicionais deseja extrair (MB51, Produção).
-6. Clique em **Executar** e aguarde a finalização com acompanhamento na barra de progresso.
+- Automação de transações SAP por **SAP GUI Scripting / win32com**.
+- Uso de **1 a 4 sessões** em consultas compatíveis com paralelismo.
+- Consolidação e atualização de dados em Excel, com **pandas** e automação COM.
+- Interface Tkinter, configurações persistidas em JSON e acompanhamento de progresso.
+
+```text
+Entradas → Extração e validação → Processamento → Excel/relatório → Conferência
+```
+
+## 🧩 Pré-requisitos
+
+- **Windows** com Python 3 e `pip`.
+- **SAP GUI for Windows**, scripting habilitado no cliente e permitido no ambiente SAP.
+- Credenciais e autorizações para as transações SAP necessárias.
+- **Microsoft Excel desktop** para a consolidação via COM.
+- Arquivo Excel mestre no layout esperado, pasta de saída acessível e conexão SAP configurada. `SAP_CONNECTION_NAME` é apenas um placeholder.
+
+**Observação:** a versão pública foi adaptada para fins de portfólio. Ela **não é uma aplicação de demonstração independente dos sistemas corporativos**. Requer configurações próprias e não foi validada aqui em ambiente SAP/SSRS real.
+
+## 🚀 Instalação
+
+Dentro da pasta deste módulo, em um terminal do Windows:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+> O módulo **Tkinter** costuma acompanhar a instalação padrão do Python para Windows. Os componentes externos (SAP GUI, Excel e Edge, quando aplicáveis) são instalados separadamente e não pelo `pip`.
+
+## ▶️ Execução
+
+```powershell
+python "sap_bridge.py"
+```
+
+- Selecione a pasta de destino e a planilha mestre.
+- Defina período e número de sessões para os relatórios compatíveis.
+- Escolha os relatórios disponíveis na interface e execute.
+- Acompanhe o progresso e confira a consolidação final.
+
+## 🧰 Tecnologias e código
+
+O ponto de entrada está em [`sap_bridge.py`](./sap_bridge.py); as dependências Python declaradas estão em [`requirements.txt`](./requirements.txt).
+
+## 🔒 Contexto e limitações
+
+Projeto originado de uma necessidade operacional real durante minha atuação na Suzano (2025–2026). Valores, conexões, endereços e dados específicos foram substituídos ou omitidos na publicação. **A anonimização não substitui avaliação de direitos de uso, confidencialidade ou autorização da organização.**
+
+Resultados de desempenho são históricos e aproximados; podem variar conforme volumes, rede, permissões e condições do ambiente. Este README descreve o fluxo, mas não constitui garantia de execução em infraestrutura não configurada.
