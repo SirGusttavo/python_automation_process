@@ -1,4 +1,8 @@
-# Python Automation Process 🐍
+# Flow | Python Automation Process
+
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white) ![SAP GUI](https://img.shields.io/badge/SAP_GUI-0FA6D4?style=for-the-badge&logo=sap&logoColor=white) ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white) ![Excel](https://img.shields.io/badge/Excel-217346?style=for-the-badge&logo=microsoftexcel&logoColor=white) ![Windows](https://img.shields.io/badge/Windows_COM-0078D4?style=for-the-badge&logo=windows&logoColor=white)
+
+**Seis módulos de automação de processos, integração de sistemas e tratamento de dados desenvolvidos com Python.**
 
 Este diretório reúne projetos de **automação de processos desenvolvidos em Python durante minha experiência na Suzano S.A.**
 
@@ -18,6 +22,7 @@ Cada projeto abaixo possui um objetivo específico e diferentes abordagens técn
 - [📊 Resultados](#-resultados)
 - [🔒 Higienização](#-higienização)
 - [📁 Estrutura](#-estrutura)
+- [▶️ Pré-requisitos e execução](#️-pré-requisitos-e-execução)
 
 ---
 
@@ -46,6 +51,21 @@ Entre as principais atividades automatizadas estão:
 - Processamento de grandes volumes de informações;
 - Execução paralela de tarefas;
 - Integração entre diferentes fontes de dados.
+
+---
+
+## 📌 Visão rápida
+
+| Módulo | Objetivo | Referência de resultado |
+| :--- | :--- | :--- |
+| [PGR Orchestrator](./PGR%20Orchestrator/) | Lançamento de indicadores | ~2min30 → ~15s |
+| [SAP Bridge](./SAP%20Bridge/) | Extração e consolidação SAP | ~1h30 → menos de 15min |
+| [Lot Miner](./Lot%20Miner/) | Consulta e análise de lotes | até ~1h → menos de 10min |
+| [Prod Forge](./Prod%20Forge/) | Atualização de planilhas de produção | ~10min → ~2min |
+| [VISCONF Engine](./Visconf/) | Necessidades e reservas de insumos | ~40min → ~2min |
+| [Techlyst](./Techlyst/) | Extração de BOMs | 180+ materiais em ~1h |
+
+> Os resultados são aproximados e relativos aos cenários originais de uso. Não representam benchmark independente nem garantia de execução da versão pública.
 
 ---
 
@@ -173,7 +193,7 @@ O projeto foi desenvolvido para lidar com processos de extração em grande volu
 
 ---
 
-### [VISCONF Engine](./VISCONF%20Engine/)
+### [VISCONF Engine](./Visconf/)
 
 Aplicação desenvolvida em Python para planejamento e análise de necessidades de insumos para produção.
 
@@ -193,7 +213,7 @@ O projeto utiliza informações provenientes do Excel e do SAP para realizar o t
 
 **Tecnologias:** Python, xlwings, openpyxl, SAP GUI Scripting, Tkinter e threading.
 
-[**→ Ver README completo do VISCONF Engine**](./VISCONF%20Engine/)
+[**→ Ver README completo do VISCONF Engine**](./Visconf/)
 
 ---
 
@@ -284,7 +304,7 @@ O tempo de execução do processo foi reduzido de aproximadamente **40 minutos p
 
 Os códigos foram originalmente desenvolvidos para utilização em ambiente corporativo.
 
-Para publicação no GitHub, os projetos passaram por um processo de higienização e anonimização.
+Para publicação no GitHub, os projetos foram adaptados com substituição ou remoção de dados e referências corporativas. Isso não constitui, por si só, uma auditoria de segurança concluída nem autorização de publicação do código.
 
 Foram removidos ou substituídos:
 
@@ -302,7 +322,7 @@ Foram removidos ou substituídos:
 
 Quando necessário, valores reais foram substituídos por exemplos ou placeholders genéricos, preservando a estrutura necessária para demonstrar o funcionamento do código.
 
-> A versão pública não tem como objetivo reproduzir o ambiente interno da Suzano. O objetivo é demonstrar as soluções técnicas, as abordagens de automação e os conhecimentos aplicados no desenvolvimento.
+> A versão pública não tem como objetivo reproduzir o ambiente interno da Suzano. O objetivo é demonstrar as soluções técnicas, as abordagens de automação e os conhecimentos aplicados no desenvolvimento. A publicação deve respeitar políticas da organização, propriedade intelectual e obrigações de confidencialidade.
 
 ---
 
@@ -326,7 +346,7 @@ python_automation_process/
 ├── Techlyst/
 │   └── README.md
 │
-├── VISCONF Engine/
+├── Visconf/
 │   └── README.md
 │
 └── README.md
@@ -342,6 +362,26 @@ Cada projeto possui um README próprio contendo informações mais detalhadas so
 - Execução;
 - Resultados;
 - Processo de higienização.
+
+---
+
+## ▶️ Pré-requisitos e execução
+
+As automações foram construídas para um **ambiente corporativo Windows**, com sistemas e arquivos específicos. Os READMEs de cada módulo descrevem o fluxo, o script principal, as bibliotecas e os pré-requisitos particulares.
+
+**Requisitos gerais:** Windows, Python 3, ambiente virtual e bibliotecas descritas no `requirements.txt` do módulo. Dependendo do projeto, também são necessários **Microsoft Excel desktop**, **SAP GUI for Windows e scripting habilitado**, **Microsoft Edge**, acesso ao **SSRS/portal** ou planilhas no layout esperado.
+
+**Exemplo de instalação** (no terminal do Windows, dentro da pasta do módulo escolhido):
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+Execute o arquivo `.py` indicado pelo README do módulo. **Dependências instaladas não substituem as autorizações SAP, configurações internas ou dados de entrada**. Na versão pública, domínios como `example.com` e conexões como `SAP_CONNECTION_NAME` são demonstrativos. A execução funcional requer adaptar parâmetros para um ambiente autorizado.
+
+As instruções foram revisadas conforme o código disponível, **sem teste integrado em sistemas empresariais nesta etapa**.
 
 ---
 
