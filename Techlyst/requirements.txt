@@ -1,5 +1,6 @@
-# Techlyst - Dependencies
-# Requires Windows (COM automation, SAP GUI Scripting)
+# Techlyst — dependências Python
+# Ambiente: Windows; aplicações corporativas externas exigem instalação e acesso próprios.
+# Faixas mínimas de versão são indicativas, não equivalem a um lockfile testado.
 
 pandas>=1.5
 openpyxl>=3.0
