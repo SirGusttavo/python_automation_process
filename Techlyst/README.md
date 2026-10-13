@@ -1,35 +1,70 @@
-# Techlyst (TecList Forge)
+# Techlyst
 
-**Status:** Código Higienizado para Portfólio
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![SAP](https://img.shields.io/badge/SAP_GUI-0FA6D4?style=flat-square&logo=sap&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white) ![Excel](https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white)
 
-## Visão Geral
-O **Techlyst** (internamente chamado de *TecList Forge*) é uma aplicação desenvolvida em Python para automatizar a extração de Listas Técnicas (Bill of Materials - BOM) do sistema SAP, utilizando as transações C203 e MM03. 
+> Extração automatizada de listas técnicas (Bill of Materials — BOM) do SAP.
 
-Esta ferramenta foi projetada para lidar com processos de extração de alto volume e otimizar o tempo através de sessões simultâneas do SAP, processando dados complexos de produção e convertendo-os em planilhas Excel formatadas para análise e tomada de decisão.
+[← Voltar ao portfólio Flow](../README.md)
 
-## Principais Recursos
-- **Extração Multi-threaded:** Utiliza o módulo `threading` para realizar a extração simultânea de dados em várias sessões do SAP, com sincronização por *barrier* (worker barrier synchronization), aumentando drasticamente a velocidade de coleta de dados.
-- **Banco de Dados Híbrido Inovador (Memória + JSON em AppData):** A aplicação possui um sistema robusto de banco de dados híbrido. Ele utiliza um dicionário de classificação de materiais em memória e o sincroniza com arquivos JSON salvos na pasta AppData do usuário. Isso permite controle de versão, rápida recuperação de dados e fácil atualização sem necessidade de reimplantação do script.
-- **Automação de Interface SAP:** Integração direta com a SAP GUI via COM (Component Object Model) utilizando `win32com`, automatizando cliques, inserção de dados e leitura de campos (Scraping).
-- **Processamento de Dados:** Tratamento e limpeza das informações extraídas usando `pandas`.
-- **Exportação Profissional:** Geração de arquivos `.xlsx` formatados utilizando `openpyxl`, com tabelas estilizadas, filtros e validação visual de dados.
-- **Interface Gráfica Amigável:** Desenvolvido com `Tkinter` (e `ttk`), proporcionando um painel intuitivo para configuração de threads, entrada de SKUs, seleção de centros e acompanhamento em tempo real do log e status.
+## 📌 Visão geral
 
-## Tecnologias Utilizadas
-- **Linguagem:** Python
-- **Automação SAP:** SAP GUI Scripting API (COM/win32com)
-- **Manipulação de Dados:** pandas
-- **Geração de Relatórios Excel:** openpyxl
-- **Interface Gráfica (GUI):** Tkinter
-- **Concorrência:** threading (Barrier, Lock, Event)
+**Desafio.** A consulta individual de listas técnicas e sua organização em planilhas consumiam tempo, especialmente para grandes volumes de materiais.
 
-## Nota sobre a Higienização do Código
-O código-fonte deste repositório foi rigorosamente **higienizado** para remover quaisquer dados sensíveis, informações corporativas confidenciais e credenciais, permitindo sua exibição pública como parte de um portfólio de engenharia de software e automação.
+**Solução.** Extração automatizada de listas técnicas (Bill of Materials — BOM) do SAP.
 
-As alterações incluem:
-- Nomes de servidores, caminhos de rede e conexões SAP substituídos por variáveis e placeholders genéricos (`SAP_CONNECTION_NAME`, etc.).
-- O extenso banco de dados interno de materiais foi resumido a dados de exemplo para demonstrar a estrutura de chave-valor.
-- Nomes de plantas, depósitos, layouts e códigos de máquinas (`DEPARA_LINHAS`) foram substituídos por códigos genéricos (`Plant-A`, `MACHINE-01`, etc.).
-- Nomes de empresas, portais internos e usuários reais foram completamente anonimizados.
+**Resultado observado.** **Mais de 180 materiais em aproximadamente 1 hora**, com quatro sessões SAP no cenário original.
 
-*Este projeto demonstra capacidades avançadas em automação de sistemas corporativos (RPA), arquitetura de dados híbrida e programação concorrente em Python.*
+## ⚙️ Como funciona
+
+- Automação de consultas SAP (incluindo C203 e MM03) usando **SAP GUI Scripting**.
+- Extração paralela com múltiplas sessões e sincronização entre trabalhadores.
+- Tratamento e classificação dos materiais com **pandas**.
+- Geração de arquivos `.xlsx` com **openpyxl**; preferências/classificações auxiliares armazenadas em JSON.
+- Interface gráfica com controle de execução e logs.
+
+```text
+Entradas → Extração e validação → Processamento → Excel/relatório → Conferência
+```
+
+## 🧩 Pré-requisitos
+
+- **Windows** com Python 3 e `pip`.
+- **SAP GUI for Windows** com scripting habilitado e acesso autorizado às consultas de listas técnicas.
+- Conexão SAP configurada; placeholders como `SAP_CONNECTION_NAME` não funcionam sem adaptação.
+- Materiais de entrada válidos e permissões para gravar a planilha de saída.
+- Para executar múltiplas sessões, o ambiente precisa permitir a abertura e utilização simultânea delas.
+
+**Observação:** a versão pública foi adaptada para fins de portfólio. Ela **não é uma aplicação de demonstração independente dos sistemas corporativos**. Requer configurações próprias e não foi validada aqui em ambiente SAP/SSRS real.
+
+## 🚀 Instalação
+
+Dentro da pasta deste módulo, em um terminal do Windows:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+> O módulo **Tkinter** costuma acompanhar a instalação padrão do Python para Windows. Os componentes externos (SAP GUI, Excel e Edge, quando aplicáveis) são instalados separadamente e não pelo `pip`.
+
+## ▶️ Execução
+
+```powershell
+python "techlyst.py"
+```
+
+- Informe os materiais e os parâmetros solicitados na interface.
+- Selecione a configuração de sessões compatível com seu ambiente.
+- Inicie a extração e acompanhe o status.
+- Confira as classificações e a planilha Excel exportada.
+
+## 🧰 Tecnologias e código
+
+O ponto de entrada está em [`techlyst.py`](./techlyst.py); as dependências Python declaradas estão em [`requirements.txt`](./requirements.txt).
+
+## 🔒 Contexto e limitações
+
+Projeto originado de uma necessidade operacional real durante minha atuação na Suzano (2025–2026). Valores, conexões, endereços e dados específicos foram substituídos ou omitidos na publicação. **A anonimização não substitui avaliação de direitos de uso, confidencialidade ou autorização da organização.**
+
+Resultados de desempenho são históricos e aproximados; podem variar conforme volumes, rede, permissões e condições do ambiente. Este README descreve o fluxo, mas não constitui garantia de execução em infraestrutura não configurada.
