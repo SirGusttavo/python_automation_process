@@ -1,8 +1,9 @@
-# Lot Miner - Dependencies
-# Requires Windows (COM automation, SAP GUI Scripting)
+# Lot Miner — dependências Python
+# Ambiente: Windows; aplicações corporativas externas exigem instalação e acesso próprios.
+# Faixas mínimas de versão são indicativas, não equivalem a um lockfile testado.
 
 selenium>=4.0
 pandas>=1.5
 openpyxl>=3.0
+xlwings>=0.27
 pywin32>=300
-msedge-selenium-tools>=3.0  # ou selenium com Edge nativo
