@@ -1,34 +1,71 @@
 # Lot Miner
 
-**Lot Miner** é uma ferramenta de análise em lote desenvolvida em Python para extrair e processar dados de lotes de produtos. O sistema utiliza automação web e integração com ERP para consolidar informações em relatórios detalhados, permitindo um acompanhamento preciso da produção.
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=selenium&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas&logoColor=white) ![Excel](https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white)
 
-## Principais Funcionalidades
+> Extração de relatórios SSRS e consolidação de dados de lotes em Excel.
 
-- **Extração de Dados via SSRS**: Utiliza Selenium WebDriver (Edge) para navegar, interagir e extrair dados tabulares de relatórios web internos (SSRS) armazenados em iframes.
-- **Processamento Paralelo**: Implementa extração paralela com múltiplas instâncias de navegadores (número configurável de janelas do Edge × abas), acelerando significativamente a coleta de dados de grandes volumes de lotes.
-- **Integração Opcional com SAP (MB52)**: Permite a extração de dados de estoque através de SAP GUI Scripting, integrando os dados de chão de fábrica com o ERP.
-- **Saída em Excel Formatado**: Utiliza `pandas` e `openpyxl` para estruturar, limpar e exportar os dados em um arquivo Excel completo com planilhas de análise e formatação condicional.
-- **Interface Gráfica (GUI)**: Apresenta uma interface amigável desenvolvida em `Tkinter` (estilo wizard), incluindo uma janela de acompanhamento do progresso da extração em tempo real.
+[← Voltar ao portfólio Flow](../README.md)
 
-## Tecnologias Utilizadas
+## 📌 Visão geral
 
-- **Python**: Linguagem principal.
-- **Selenium WebDriver (Edge)**: Automação web e web scraping.
-- **SAP GUI Scripting (COM)**: Automação e interação com SAP ERP.
-- **pandas**: Manipulação e análise de dados tabulares.
-- **BeautifulSoup / pd.read_html**: Parsing de HTML.
-- **openpyxl / xlwings**: Geração e formatação avançada de relatórios Excel.
-- **Tkinter**: Construção da interface gráfica e controle em tempo real.
-- **threading & queue**: Gerenciamento do processamento paralelo de tarefas web.
+**Desafio.** Consultas manuais repetidas a relatórios de lotes tornavam a conferência e a investigação de divergências demoradas.
 
-## Estrutura do Código
+**Solução.** Extração de relatórios SSRS e consolidação de dados de lotes em Excel.
 
-- **JanelaPrincipal**: Interface de configuração inicial dividida em seções (wizard).
-- **Estado (Bridge)**: Gerenciamento thread-safe que permite comunicação contínua entre os workers de extração e a interface de usuário.
-- **Worker de Extração**: Rotinas em background que paralelizam as consultas web utilizando Selenium.
-- **JanelaProgresso**: Janela para monitoramento dinâmico (polling em milissegundos) do status atual da extração e processamento.
-- **Exportação e Formatação**: Funções que padronizam e formatam o relatório de saída, aplicando alertas de qualidade visualmente (células coloridas) quando identificados desvios nos lotes analisados.
+**Resultado observado.** **~6–7 segundos → ~2 segundos por lote**, com processos de até aproximadamente **1 hora** reduzidos para **menos de 10 minutos** conforme volume e condições de uso.
 
-## Notas
+## ⚙️ Como funciona
 
-*Nota: Este projeto foi higienizado para remover informações corporativas sensíveis, tornando-o adequado para fins de demonstração em portfólio.*
+- Automação da navegação e extração de tabelas em **relatórios SSRS**, com **Selenium/Edge**.
+- Consultas paralelas em navegadores e abas, configuradas pela interface.
+- Integração **opcional** com SAP GUI Scripting para complementar informações de estoque (MB52).
+- Tratamento de dados via **pandas** e exportação de planilhas formatadas com **openpyxl**.
+- Acompanhamento do processamento pela interface Tkinter.
+
+```text
+Entradas → Extração e validação → Processamento → Excel/relatório → Conferência
+```
+
+## 🧩 Pré-requisitos
+
+- **Windows** com Python 3 e `pip`.
+- **Microsoft Edge** e WebDriver compatível.
+- Acesso autorizado ao **servidor de relatórios SSRS**; o domínio `reports.example.com` é ilustrativo.
+- Planilha ou lista de lotes com as colunas/formato esperados.
+- Para a integração **opcional** com SAP: **SAP GUI for Windows**, scripting habilitado e acesso autorizado.
+- **Microsoft Excel desktop** para os fluxos que usam xlwings/COM.
+
+**Observação:** a versão pública foi adaptada para fins de portfólio. Ela **não é uma aplicação de demonstração independente dos sistemas corporativos**. Requer configurações próprias e não foi validada aqui em ambiente SAP/SSRS real.
+
+## 🚀 Instalação
+
+Dentro da pasta deste módulo, em um terminal do Windows:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+> O módulo **Tkinter** costuma acompanhar a instalação padrão do Python para Windows. Os componentes externos (SAP GUI, Excel e Edge, quando aplicáveis) são instalados separadamente e não pelo `pip`.
+
+## ▶️ Execução
+
+```powershell
+python "lot_miner.py"
+```
+
+- Informe a lista/planilha de lotes e as configurações de consulta.
+- Configure o paralelismo e, se aplicável, a etapa opcional SAP.
+- Execute as consultas e acompanhe os lotes processados.
+- Revise os relatórios Excel e os alertas gerados.
+
+## 🧰 Tecnologias e código
+
+O ponto de entrada está em [`lot_miner.py`](./lot_miner.py); as dependências Python declaradas estão em [`requirements.txt`](./requirements.txt).
+
+## 🔒 Contexto e limitações
+
+Projeto originado de uma necessidade operacional real durante minha atuação na Suzano (2025–2026). Valores, conexões, endereços e dados específicos foram substituídos ou omitidos na publicação. **A anonimização não substitui avaliação de direitos de uso, confidencialidade ou autorização da organização.**
+
+Resultados de desempenho são históricos e aproximados; podem variar conforme volumes, rede, permissões e condições do ambiente. Este README descreve o fluxo, mas não constitui garantia de execução em infraestrutura não configurada.
