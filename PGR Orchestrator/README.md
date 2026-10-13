@@ -1,40 +1,69 @@
 # PGR Orchestrator
 
-O **PGR Orchestrator** é uma automação desenvolvida em Python para preenchimento de indicadores no portal corporativo (PGR). Ele utiliza Selenium WebDriver (Edge) e xlwings para integração com planilhas Excel, automatizando o lançamento de dados de Waste e Consumo com suporte a execução paralela (dual-driver).
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=selenium&logoColor=white) ![Excel](https://img.shields.io/badge/Excel-217346?style=flat-square&logo=microsoftexcel&logoColor=white) ![Tkinter](https://img.shields.io/badge/Tkinter-795548?style=flat-square&logo=python&logoColor=white)
 
-## Funcionalidades
+> Lançamento automatizado de indicadores operacionais em portal web.
 
-- **Automação Web com Selenium**: Interação com o portal corporativo via Microsoft Edge.
-- **Processamento de Dados**: Extração de dados diretamente do Excel via `xlwings` usando automação COM.
-- **Execução Paralela**: Suporte a execução de dois drivers (um para Waste e outro para Consumo) simultaneamente usando `concurrent.futures`.
-- **Interface Gráfica Avançada (GUI)**: Criada em Tkinter com tema escuro, contendo barras de progresso duplas, cálculo dinâmico de ETA e separação em cards.
-- **Auto-login SSO**: Preenchimento automático de e-mail e tratamento de fluxo de login corporativo.
-- **Notificações do Windows**: Alertas via balões do sistema ("toast notifications").
+[← Voltar ao portfólio Flow](../README.md)
 
-## Tecnologias Utilizadas
+## 📌 Visão geral
 
-- **Python**
-- **Selenium WebDriver (Edge)**
-- **xlwings**
-- **Tkinter / ttk**
-- **threading** e **concurrent.futures**
+**Desafio.** Indicadores já calculados em planilhas exigiam lançamentos repetitivos em um portal corporativo.
 
-## Estrutura do Código
+**Solução.** Lançamento automatizado de indicadores operacionais em portal web.
 
-- A interface principal está isolada na classe `ConfiguracaoGUI` (dark theme).
-- O progresso em tempo real é exibido pela classe `JanelaProgresso`, com atualização na main thread.
-- O mapeamento de indicadores e máquinas foi generalizado para proteção de dados sensíveis da empresa.
-- As interações do Excel são gerenciadas pela `ExcelEngine` com segurança contra fechamento acidental de planilhas de terceiros.
-- O automador web `WebAutomator` controla a espera explícita (Explicit Waits) e retentativas exponenciais de injeção de dados.
+**Resultado observado.** **~2min30 → ~15 segundos por execução** (redução aproximada de 90% no cenário original).
 
-## Instruções
+## ⚙️ Como funciona
 
-1. Selecione a **Planilha Base**.
-2. Preencha o login (se solicitado pelo fluxo SSO).
-3. Determine o período e as categorias que deseja automatizar.
-4. Escolha entre execução sequencial ou em paralelo.
-5. Inicie e acompanhe o preenchimento pelas barras de progresso.
+- Leitura das informações da planilha via **xlwings / Excel COM**.
+- Automação do portal com **Selenium WebDriver e Microsoft Edge**.
+- Execução paralela de fluxos de indicadores, com acompanhamento de progresso e estimativa de tempo.
+- Interface gráfica para configurar arquivo, período e categorias.
 
----
+```text
+Entradas → Extração e validação → Processamento → Excel/relatório → Conferência
+```
 
-> **Aviso de Privacidade:** Este código foi higienizado. Nomes de equipamentos específicos, servidores, domínios e caminhos absolutos foram anonimizados para publicação em portfólio de acordo com boas práticas de segurança da informação.
+## 🧩 Pré-requisitos
+
+- **Windows** com Python 3 e `pip`.
+- **Microsoft Excel desktop** instalado e acesso à planilha no formato esperado.
+- **Microsoft Edge** e WebDriver compatível (o Selenium recente pode gerenciá-lo automaticamente, conforme o ambiente).
+- Acesso autorizado ao **portal web de destino**; a URL pública no código é demonstrativa (`portal.example.com`).
+- Autenticação corporativa e estrutura de indicadores compatíveis com o cenário original.
+
+**Observação:** a versão pública foi adaptada para fins de portfólio. Ela **não é uma aplicação de demonstração independente dos sistemas corporativos**. Requer configurações próprias e não foi validada aqui em ambiente SAP/SSRS real.
+
+## 🚀 Instalação
+
+Dentro da pasta deste módulo, em um terminal do Windows:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+
+> O módulo **Tkinter** costuma acompanhar a instalação padrão do Python para Windows. Os componentes externos (SAP GUI, Excel e Edge, quando aplicáveis) são instalados separadamente e não pelo `pip`.
+
+## ▶️ Execução
+
+```powershell
+python "pgr_orchestrator.py"
+```
+
+- Selecione a planilha-base e informe o período.
+- Defina os indicadores/categorias que deseja processar.
+- Inicie o processamento e acompanhe as barras de progresso.
+- Confira os lançamentos no sistema de destino.
+
+## 🧰 Tecnologias e código
+
+O ponto de entrada está em [`pgr_orchestrator.py`](./pgr_orchestrator.py); as dependências Python declaradas estão em [`requirements.txt`](./requirements.txt).
+
+## 🔒 Contexto e limitações
+
+Projeto originado de uma necessidade operacional real durante minha atuação na Suzano (2025–2026). Valores, conexões, endereços e dados específicos foram substituídos ou omitidos na publicação. **A anonimização não substitui avaliação de direitos de uso, confidencialidade ou autorização da organização.**
+
+Resultados de desempenho são históricos e aproximados; podem variar conforme volumes, rede, permissões e condições do ambiente. Este README descreve o fluxo, mas não constitui garantia de execução em infraestrutura não configurada.
