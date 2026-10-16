@@ -12,7 +12,7 @@
 
 **Solução.** Extração de relatórios SSRS e consolidação de dados de lotes em Excel.
 
-**Resultado observado.** **~6–7 segundos → ~2 segundos por lote**, com processos de até aproximadamente **1 hora** reduzidos para **menos de 10 minutos** conforme volume e condições de uso.
+**Resultado observado.** **~10–15 segundos → ~2 segundos por lote**, com processos de até aproximadamente **1 hora** reduzidos para **menos de 10 minutos** conforme volume e condições de uso.01
 
 ## ⚙️ Como funciona
 
